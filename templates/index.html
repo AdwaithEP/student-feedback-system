@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Add this if you have CSS for stars/rating -->
+    <style>
+        .rating input { display: none; }
+        .rating label { cursor: pointer; font-size: 2rem; color: #ddd; }
+        .rating input:checked \~ label { color: gold; }
+        .rating label:hover, .rating label:hover \~ label { color: gold; }
+    </style>
+</head>
+<body>
+    <div style="position: absolute; top: 15px; right: 20px; z-index: 10;">
+        <a href="/admin" 
+           style="background: #4361ee; color: white; padding: 10px 18px; border-radius: 8px; 
+                  text-decoration: none; font-weight: 500; font-size: 1rem; 
+                  box-shadow: 0px 6px rgba(0,0,0,0.15); transition: all 0.2s;">
+           Admin Panel
+        </a>
+    </div>
+
+    <div class="container">
+        <h2>Student Feedback</h2>
+
+        <form action="/submit" method="POST" id="feedbackForm">
+            <label>Student Name</label>
+            <input type="text" name="name" required>
+
+            <label>Feedback Title</label>
+            <input type="text" name="title" placeholder="Eg: Excellent Teaching" required>
+
+            <label>Rating</label>
+            <div class="rating">
+                <input type="radio" name="rating" value="5" id="star5">
+                <label for="star5">★</label>
+                
+                <input type="radio" name="rating" value="4" id="star4">
+                <label for="star4">★</label>
+                
+                <input type="radio" name="rating" value="3" id="star3">
+                <label for="star3">★</label>
+                
+                <input type="radio" name="rating" value="2" id="star2">
+                <label for="star2">★</label>
+                
+                <input type="radio" name="rating" value="1" id="star1">
+                <label for="star1">★</label>
+            </div>
+
+            <label>Feedback Message</label>
+            <textarea name="feedback" rows="5" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>
