@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Firebase / Secrets
+firebase-key.json
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

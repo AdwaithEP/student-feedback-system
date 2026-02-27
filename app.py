@@ -6,7 +6,7 @@ app = Flask(__name__)
 # ────────────────────────────────────────────────
 #   Firebase setup (do this once at startup)
 # ────────────────────────────────────────────────
-cred = credentials.Certificate("firebase-key.json")
+cred = credentials.Certificate(r"C:\LENOVO\secure-creds\new-firebase-admin.json")
 initialize_app(cred)
 db = firestore.client()
 # ────────────────────────────────────────────────
