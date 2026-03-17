@@ -24,6 +24,11 @@
 
     <div class="container">
         <h2>Student Feedback</h2>
+        {% if success %}
+    <div style="background:#27ae60; color:white; padding:14px 20px; border-radius:8px; margin-bottom:20px; font-size:1rem;">
+        ✅ Feedback submitted successfully! Thank you.
+    </div>
+    {% endif %}
 
         <form action="/submit" method="POST" id="feedbackForm">
             <label>Student Name</label>
