@@ -1,87 +1,133 @@
-/* =========================
+/* ========================
    RESET
-========================= */
+======================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* =========================
+/* ========================
    BODY
-========================= */
+======================== */
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(120deg, #f4f6f9, #e9eef5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    animation: fadeIn 0.8s ease-in-out;
+    justify-content: center;
+    padding: 40px 20px;
 }
 
-/* =========================
-   CONTAINER
-========================= */
-.container {
-    background: #ffffff;
+/* ========================
+   WRAPPER
+======================== */
+.wrapper {
     width: 100%;
-    max-width: 420px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    animation: popUp 0.6s ease-out;
-    margin: 20px auto;
+    max-width: 520px;
 }
 
-/* =========================
-   HEADING
-========================= */
-h2 {
+/* ========================
+   HEADER
+======================== */
+.header {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 30px;
 }
 
-/* =========================
-   LABELS
-========================= */
-label {
-    font-weight: 600;
-    margin-top: 12px;
-    display: block;
+.header h2 {
+    font-size: 1.8rem;
+    color: #00d4ff;
+    letter-spacing: 1px;
+}
+
+.header p {
     color: #555;
+    font-size: 0.8rem;
+    margin-top: 6px;
+    letter-spacing: 1px;
 }
 
-/* =========================
+/* ========================
+   CARD
+======================== */
+.card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 36px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ========================
+   SUCCESS MESSAGE
+======================== */
+.success-msg {
+    background: rgba(46,204,113,0.15);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+/* ========================
+   LABELS
+======================== */
+label {
+    display: block;
+    font-size: 0.75rem;
+    color: #aaa;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    margin-top: 18px;
+}
+
+/* ========================
    INPUTS & TEXTAREA
-========================= */
-input,
+======================== */
+input[type="text"],
 textarea {
     width: 100%;
-    padding: 10px 12px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input:focus,
-textarea:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #eee;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    border-radius: 8px;
     outline: none;
+    transition: border-color 0.2s;
 }
 
-/* =========================
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #00d4ff;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #444;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* ========================
    RATING STARS
-========================= */
+======================== */
 .rating {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-start;
-    margin-top: 6px;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 8px;
 }
 
 .rating input {
@@ -89,136 +135,76 @@ textarea:focus {
 }
 
 .rating label {
-    font-size: 28px;
-    color: #ccc;
+    font-size: 2rem;
+    color: #333;
     cursor: pointer;
-    transition: color 0.3s, transform 0.2s;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0;
+    transition: color 0.2s;
 }
 
+.rating input:checked ~ label,
 .rating label:hover,
 .rating label:hover ~ label {
-    color: #f5b301;
-    transform: scale(1.15);
-}
-
-.rating input:checked ~ label {
-    color: #f5b301;
-}
-
-/* =========================
-   CHARACTER COUNTER
-========================= */
-#charCount {
-    font-size: 12px;
-    color: #777;
-    margin-top: 4px;
-    text-align: right;
-}
-
-/* =========================
-   BUTTON
-========================= */
-button {
-    width: 100%;
-    margin-top: 18px;
-    padding: 12px;
-    background: #4a90e2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-}
-
-button:hover {
-    background: #357ab8;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
-}
-
-button:active {
-    transform: scale(0.97);
+    color: #00d4ff;
 }
 
 /* ========================
-   ADMIN TABLE & DELETE BUTTON
-   ======================== */
-
-.admin-table {
+   BUTTON
+======================== */
+button[type="submit"] {
     width: 100%;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 1rem;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-.admin-table th,
-.admin-table td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.admin-table th {
-    background: #4a90e2;
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-}
-
-
-
-
-.admin-table tr:hover {
-    background-color: #eef4ff;
-    transition: background-color 0.2s;
-}
-
-.delete-btn {
-    background: #e74c3c;
-    color: white;
+    background: linear-gradient(90deg, #0f3460, #533483);
     border: none;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    margin-top: 24px;
+    transition: all 0.2s;
+}
+
+button[type="submit"]:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,212,255,0.2);
+}
+
+/* ========================
+   ADMIN LINK
+======================== */
+.admin-link {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: #00d4ff;
     padding: 8px 16px;
     border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.25s ease;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
 }
 
-.delete-btn:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+.admin-link:hover {
+    background: rgba(0,212,255,0.2);
 }
 
-
-
-/* =========================
+/* ========================
    RESPONSIVE
-========================= */
+======================== */
 @media (max-width: 480px) {
-    .container {
-        margin: 15px;
+    .card {
         padding: 20px;
     }
     .rating label {
-        font-size: 24px;
-    }
-    .box h3 {
-        font-size: 16px;
-    }
-    .admin-table{
-        font-size: 0.8rem; 
-    }
-    .admin-table th,
-    .admin-table td{
-        padding: 10px 12px;
+        font-size: 1.5rem;
     }
 }
