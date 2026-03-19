@@ -4,120 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Feedbacks</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        /* Admin-specific overrides */
-        body.admin-page {
-            background: linear-gradient(120deg, #f0f4ff, #e8f0ff);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: #eee;
         }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 1rem;
-            background: white;
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            letter-spacing: 1px;
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #aaa;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+
+        .btn-logout {
+            background: #e74c3c;
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .stats-bar {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .stats-bar span {
+            color: #00d4ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .table-wrap {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
-        .admin-table th,
-        .admin-table td {
-            padding: 14px 16px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(90deg, #0f3460, #533483);
+        }
+
+        thead th {
+            padding: 16px 20px;
             text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        .admin-table th {
-            background: #4a90e2;
-            color: white;
-            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+            color: #00d4ff;
+            font-weight: 600;
         }
-        .admin-table tr:hover {
-            background: #f8fbff;
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.2s;
         }
+
+        tbody tr:last-child { border-bottom: none; }
+
+        tbody tr:hover {
+            background: rgba(0,212,255,0.04);
+        }
+
+        tbody td {
+            padding: 16px 20px;
+            font-size: 0.88rem;
+            color: #ddd;
+            vertical-align: top;
+        }
+
+        .rating-high { color: #2ecc71; font-weight: 600; }
+        .rating-mid  { color: #f39c12; font-weight: 600; }
+        .rating-low  { color: #e74c3c; font-weight: 600; }
+
         .delete-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
+            background: rgba(231,76,60,0.15);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            padding: 6px 14px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.25s;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
+
         .delete-btn:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+            background: #e74c3c;
+            color: white;
+            transform: translateY(-1px);
         }
+
         .no-feedback {
             text-align: center;
-            padding: 60px 20px;
-            color: #777;
-            font-size: 1.2rem;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #4a90e2;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .back-link:hover {
-            text-decoration: underline;
+            padding: 80px 20px;
+            color: #555;
+            font-size: 1rem;
         }
     </style>
 </head>
-<body class="admin-page">
-    <div class="container">
-        <h1>Admin Panel - All Feedbacks</h1>
+<body>
+    <div class="wrapper">
+
+        <div class="header">
+            <h1>⚡ Admin Panel</h1>
+            <div class="header-btns">
+                <a href="/" class="btn-back">← Feedback Form</a>
+                <a href="/admin/logout" class="btn-logout">Logout</a>
+            </div>
+        </div>
 
         {% if feedbacks %}
-            <p style="font-weight:500; color:#555; margin-bottom:20px;">
-                Found {{ feedbacks|length }} feedback{{ 's' if feedbacks|length != 1 else '' }}.
-            </p>
+        <div class="stats-bar">
+            Total Feedbacks: <span>{{ feedbacks|length }}</span>
+        </div>
 
-            <table class="admin-table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Rating</th>
-            <th>Message</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for fb in feedbacks %}
-        <tr>
-            <td>{{ fb.name or '—' }}</td>
-            <td>{{ fb.title or '—' }}</td>
-            <td class="{% if (fb.rating | default(0) | int) >= 4 %}rating-high{% elif (fb.rating | default(0) | int) <= 2 %}rating-low{% else %}rating-mid{% endif %}">
-    {{ fb.rating or '—' }}
-</td>
-            <td>{{ fb.message or fb.feedback or '—' }}</td>
-            <td>
-                <form action="/delete/{{ fb.id }}" method="POST" style="margin: 0;">
-                    <button type="submit" class="delete-btn"
-                            onclick="return confirm('Delete this feedback permanently?');">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Rating</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fb in feedbacks %}
+                    <tr>
+                        <td>{{ fb.name or '—' }}</td>
+                        <td>{{ fb.title or '—' }}</td>
+                        <td class="{% if (fb.rating | default(0) | int) >= 4 %}rating-high{% elif (fb.rating | default(0) | int) <= 2 %}rating-low{% else %}rating-mid{% endif %}">
+                            {{ fb.rating or '—' }} ★
+                        </td>
+                        <td>{{ fb.message or fb.feedback or '—' }}</td>
+                        <td>
+                            <form action="/delete/{{ fb.id }}" method="POST" style="margin:0;">
+                                <button type="submit" class="delete-btn"
+                                    onclick="return confirm('Delete this feedback permanently?');">
+                                    🗑 Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
         {% else %}
-            <div class="no-feedback">
-                <p>No feedbacks submitted yet.</p>
-            </div>
+        <div class="no-feedback">
+            <p>No feedbacks submitted yet.</p>
+        </div>
         {% endif %}
 
-       <a href="/" class="back-link">← Back to Feedback Form</a>
-<a href="/admin/logout" style="display:inline-block; margin-top:30px; margin-left:20px; background:#e74c3c; color:white; padding:8px 16px; border-radius:6px; text-decoration:none;">Logout</a>
     </div>
 </body>
 </html>
